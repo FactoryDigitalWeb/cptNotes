@@ -23,7 +23,6 @@ function custom_post_type() {
       $labels = array(
           'name'                => _x( 'Notes', 'Post Type General Name' ),
           'singular_name'       => _x( 'Note', 'Post Type Singular Name' ),
-          
           'menu_name'           => __( 'Notes' ),
           'parent_item_colon'   => __( 'Parent Note' ),
           'all_items'           => __( 'All Notes'),
@@ -75,4 +74,19 @@ function custom_post_type() {
       register_post_type( 'Notes', $args );
     
   }
-    
+
+  function add_my_custom_page() {
+    // Create post object
+    $my_post = array(
+      'post_title'    => wp_strip_all_tags( 'My Custom Page' ),
+      'post_content'  => 'My custom page content',
+      'post_status'   => 'publish',
+      'post_author'   => 1,
+      'post_type'     => 'page',
+    );
+
+    // Insert the post into the database
+    wp_insert_post( $my_post );
+}
+
+register_activation_hook(__FILE__, 'add_my_custom_page');
